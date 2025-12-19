@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>平板簽到系統</title>
+<style>
+  body {
+    font-family: Arial;
+    background: #f5f5f5;
+    text-align: center;
+  }
+  h1 { margin-top: 20px; }
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    max-width: 600px;
+    margin: auto;
+  }
+  button {
+    font-size: 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    background: #4CAF50;
+    color: white;
+  }
+  button.signed {
+    background: gray;
+  }
+</style>
+</head>
+<body>
+
+<h1>📋 今日簽到</h1>
+
+<div class="list" id="list"></div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycby4oVIMCM_yRFZBDHobiV20TgogG6MTL78T2J6xI99MySPj4b9gNL557U4OoZtsywzMLw/exec";
+
+const students = [
+  {id:1, name:"吳哲賢"},
+  {id:2, name:"李政穎"},
+  {id:3, name:"陳竑諶"},
+  {id:4, name:"柯羿辰"},
+  {id:5, name:"謝承叡"},
+  {id:6, name:"王裕睿"},
+  {id:7, name:"陳秉謙"},
+  {id:8, name:"軒轅承孺"},
+  {id:9, name:"林楷倫"},
+  {id:10, name:""}
+];
+
+const signed = JSON.parse(localStorage.getItem("signed") || "[]");
+const list = document.getElementById("list");
+
+students.forEach(s => {
+  const btn = document.createElement("button");
+  btn.textContent = `${s.id}. ${s.name}`;
+  if (signed.includes(s.id)) {
+    btn.classList.add("signed");
+    btn.disabled = true;
+  }
+
+  btn.onclick = () => {
+    fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        id: s.id,
+        name: s.name,
+        device: navigator.userAgent
+      })
+    });
+
+    signed.push(s.id);
+    localStorage.setItem("signed", JSON.stringify(signed));
+    btn.classList.add("signed");
+    btn.disabled = true;
+  };
+
+  list.appendChild(btn);
+});
+</script>
+
+</body>
+</html>
