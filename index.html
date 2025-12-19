@@ -45,11 +45,11 @@
 <body>
 
 <h1>📋 今日簽到</h1>
+<button id="resetBtn">🔄 重新簽到</button>
 
-<div class="list" id="list"></div>
 
 <script>
-document.getElementById("resetBtn").onclick = () => {
+  document.getElementById("resetBtn").onclick = () => {
   if (confirm("確定要重新開始簽到嗎？")) {
     localStorage.removeItem("signed");
     location.reload();
