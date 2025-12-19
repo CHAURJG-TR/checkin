@@ -4,14 +4,52 @@
 <meta charset="UTF-8">
 <title>平板簽到系統</title>
 <style>
-  #resetBtn {
-  margin: 20px;
-  font-size: 18px;
-  padding: 12px 25px;
+ body {
+  font-family: "PingFang TC", "Noto Sans TC", Arial, sans-serif;
+  background: #f2f2f2;
+  text-align: center;
+}
+
+h1 {
+  font-size: 42px;
+  margin: 20px 0 10px;
+}
+
+#resetBtn {
+  margin: 10px 0 25px;
+  font-size: 24px;
+  padding: 16px 40px;
   border: none;
-  border-radius: 10px;
+  border-radius: 14px;
   background: #e53935;
   color: white;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+button {
+  font-size: 28px;
+  padding: 28px 10px;
+  border: none;
+  border-radius: 20px;
+  background: #4CAF50;
+  color: white;
+}
+
+button span {
+  display: block;
+  font-size: 22px;
+  margin-top: 6px;
+}
+
+button.signed {
+  background: #9e9e9e;
 }
 
   body {
