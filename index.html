@@ -7,15 +7,7 @@
   body {
     font-family: Arial;
     background: #f5f5f5;
-    text-align: center;#resetBtn {
-  margin: 20px;
-  font-size: 18px;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 10px;
-  background: #e53935;
-  color: white;
-}
+    text-align: center;
   }
   h1 { margin-top: 20px; }
   .list {
@@ -24,6 +16,16 @@
     gap: 15px;
     max-width: 600px;
     margin: auto;
+    #resetBtn {
+  margin: 20px;
+  font-size: 18px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  background: #e53935;
+  color: white;
+}
+
   }
   button {
     font-size: 20px;
@@ -40,21 +42,13 @@
 </head>
 <body>
 
-<h1>📋 今日簽到</h1>
- <button id="resetBtn">🔄 重新簽到</button>
+<h1>📋 今日簽到</h1><button id="resetBtn">🔄 重新簽到</button>
 
 
 <div class="list" id="list"></div>
 
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycby4oVIMCM_yRFZBDHobiV20TgogG6MTL78T2J6xI99MySPj4b9gNL557U4OoZtsywzMLw/exec";
-document.getElementById("resetBtn").onclick = () => {
-  if (confirm("確定要重新開始簽到嗎？")) {
-    localStorage.removeItem("signed");
-    location.reload();
-  }
-};
-
 const students = [
   { id: 1, name: "吳哲賢" },
   { id: 2, name: "李政穎" },
@@ -76,7 +70,13 @@ const students = [
   { id: 18, name: "陳姸蓁" },
   { id: 19, name: "魏芷翎" },
   { id: 20, name: "游采璇" }
-];
+];document.getElementById("resetBtn").onclick = () => {
+  if (confirm("確定要重新開始簽到嗎？")) {
+    localStorage.removeItem("signed");
+    location.reload();
+  }
+};
+
 
 const signed = JSON.parse(localStorage.getItem("signed") || "[]");
 const list = document.getElementById("list");
