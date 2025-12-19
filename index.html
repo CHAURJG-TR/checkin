@@ -4,20 +4,29 @@
 <meta charset="UTF-8">
 <title>平板簽到系統</title>
 <style>
+  #clock {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
   body {
     font-family: Arial;
     background: #f5f5f5;
     text-align: center;
   }
   h1 { margin-top: 30px; }
+  <div id="clock"></div>
+
   
-  .list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    max-width: 600px;
-    margin: auto;
-  }
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: auto;
+}
+
   button {
     font-size: 20px;
     padding: 20px;
@@ -81,8 +90,17 @@ students.forEach(s => {
   btn.textContent = `${s.id}. ${s.name}`;
   if (signed.includes(s.id)) {
     btn.classList.add("signed");
-    btn.disabled = true;
-  }
+    btn.disabled = true;function updateClock() {
+  const now = new Date();
+  const date = now.toLocaleDateString("zh-TW");
+  const time = now.toLocaleTimeString("zh-TW");
+  document.getElementById("clock").textContent =
+    `📅 ${date}　⏰ ${time}`;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
 
   btn.onclick = () => {
     fetch(API_URL, {
