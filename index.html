@@ -49,6 +49,13 @@
 <div class="list" id="list"></div>
 
 <script>
+document.getElementById("resetBtn").onclick = () => {
+  if (confirm("確定要重新開始簽到嗎？")) {
+    localStorage.removeItem("signed");
+    location.reload();
+  }
+};
+
 const API_URL = "https://script.google.com/macros/s/AKfycby4oVIMCM_yRFZBDHobiV20TgogG6MTL78T2J6xI99MySPj4b9gNL557U4OoZtsywzMLw/exec";
 
 const students = [
