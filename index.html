@@ -4,19 +4,75 @@
 <meta charset="UTF-8">
 <title>平板簽到系統</title>
 <style>
-  body {
-    font-family: Arial;
-    background: #f5f5f5;
-    text-align: center;
+ body {
+  font-family: "PingFang TC", "Noto Sans TC", Arial, sans-serif;
+  background: #f2f2f2;
+  text-align: center;
+}
+
+h1 {
+  font-size: 42px;
+  margin: 20px 0 10px;
+}
+
+#resetBtn {
+  margin: 10px 0 25px;
+  font-size: 24px;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 14px;
+  background: #e53935;
+  color: white;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+
+button {
+  font-size: 28px;
+  padding: 28px 10px;
+  border: none;
+  border-radius: 20px;
+  background: #4CAF50;
+  color: white;
+}
+
+button span {
+  display: block;
+  font-size: 22px;
+  margin-top: 6px;#clock {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+button.signed {
+  background: #9e9e9e;
+}document.getElementById("resetBtn").onclick = () => {
+  if (confirm("確定要重新開始簽到嗎？")) {
+    localStorage.removeItem("signed");
+    location.reload();
   }
+};
+
+
+
   h1 { margin-top: 20px; }
-  .list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    max-width: 600px;
-    margin: auto;
-  }
+  <button id="resetBtn">🔄 重新簽到</button>
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: auto;
+}
+
   button {
     font-size: 20px;
     padding: 20px;
@@ -26,17 +82,34 @@
     color: white;
   }
   button.signed {
-    background: gray;
+    background: gray;function updateClock() {
+  const now = new Date();
+  const date = now.toLocaleDateString("zh-TW");
+  const time = now.toLocaleTimeString("zh-TW");
+  document.getElementById("clock").textContent =
+    `📅 ${date}　⏰ ${time}`;
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
   }
 </style>
 </head>
 <body>
 
 <h1>📋 今日簽到</h1>
-
+<div id="clock"></div>
 <div class="list" id="list"></div>
 
 <script>
+  document.getElementById("resetBtn").onclick = () => {
+  if (confirm("確定要重新開始簽到嗎？")) {
+    localStorage.removeItem("signed");
+    location.reload();
+  }
+};
+
 const API_URL = "https://script.google.com/macros/s/AKfycby4oVIMCM_yRFZBDHobiV20TgogG6MTL78T2J6xI99MySPj4b9gNL557U4OoZtsywzMLw/exec";
 
 const students = [
@@ -68,7 +141,7 @@ const list = document.getElementById("list");
 
 students.forEach(s => {
   const btn = document.createElement("button");
-  btn.textContent = `${s.id}. ${s.name}`;
+btn.innerHTML = `<strong>${s.id} 號</strong><span>${s.name}</span>`;
   if (signed.includes(s.id)) {
     btn.classList.add("signed");
     btn.disabled = true;
